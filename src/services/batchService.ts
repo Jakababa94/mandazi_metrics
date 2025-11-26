@@ -26,5 +26,10 @@ export const batchService = {
 
     async getBatch(id: string) {
         return await db.get<Batch>(id);
+    },
+
+    async deleteBatch(id: string) {
+        const doc = await db.get(id);
+        return await db.remove(doc);
     }
 };

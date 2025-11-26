@@ -28,5 +28,10 @@ export const salesService = {
             }
         });
         return result.docs as Sale[];
+    },
+
+    async deleteSale(id: string) {
+        const doc = await db.get(id);
+        return await db.remove(doc);
     }
 };

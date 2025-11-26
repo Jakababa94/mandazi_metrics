@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Plus, Factory, Calendar } from 'lucide-react';
+import { Plus, Factory, Calendar, Trash2 } from 'lucide-react';
 import { batchService } from '../services/batchService';
 import { recipeService } from '../services/recipeService';
 import type { Batch } from '../types/schema';
@@ -39,6 +39,17 @@ export const BatchList: React.FC = () => {
             case 'in-progress': return 'bg-yellow-100 text-yellow-700';
             case 'completed': return 'bg-green-100 text-green-700';
             default: return 'bg-gray-100 text-gray-700';
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (window.confirm('Are you sure you want to delete this batch?')) {
+            try {
+                await batchService.deleteBatch(id);
+                loadData();
+            } catch (error) {
+                console.error('Failed to delete batch', error);
+            }
         }
     };
 
@@ -126,6 +137,13 @@ export const BatchList: React.FC = () => {
                                 </div>
                                 <button className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
                                     Details
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(batch._id)}
+                                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                    title="Delete Batch"
+                                >
+                                    <Trash2 size={18} />
                                 </button>
                             </div>
                         </div>

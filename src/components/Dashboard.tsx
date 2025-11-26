@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TrendingUp, DollarSign, PieChart, Activity, Plus } from 'lucide-react';
+import { TrendingUp, DollarSign, PieChart, Activity, Plus, Trash2 } from 'lucide-react';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
     LineChart, Line, Legend
@@ -27,6 +27,17 @@ export const Dashboard: React.FC = () => {
             console.error('Failed to load dashboard data', error);
         } finally {
             // setLoading(false);
+        }
+    };
+
+    const handleDeleteSale = async (id: string) => {
+        if (window.confirm('Are you sure you want to delete this sale?')) {
+            try {
+                await salesService.deleteSale(id);
+                loadData();
+            } catch (error) {
+                console.error('Failed to delete sale', error);
+            }
         }
     };
 
@@ -163,6 +174,61 @@ export const Dashboard: React.FC = () => {
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
+                </div>
+            </div>
+
+            {/* Recent Sales List */}
+            <div className="mt-8 bg-white rounded-xl shadow-sm border border-blue-100 overflow-hidden">
+                <div className="p-6 border-b border-gray-100">
+                    <h3 className="text-lg font-semibold text-gray-800">Recent Sales</h3>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead className="bg-gray-50 text-gray-500 text-sm">
+                            <tr>
+                                <th className="px-6 py-3 font-medium">Date</th>
+                                <th className="px-6 py-3 font-medium">Quantity</th>
+                                <th className="px-6 py-3 font-medium">Unit Price</th>
+                                <th className="px-6 py-3 font-medium">Total</th>
+                                <th className="px-6 py-3 font-medium text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                            {sales.length === 0 ? (
+                                <tr>
+                                    <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
+                                        No sales recorded yet.
+                                    </td>
+                                </tr>
+                            ) : (
+                                sales.map((sale) => (
+                                    <tr key={sale._id} className="hover:bg-gray-50 transition-colors">
+                                        <td className="px-6 py-4 text-gray-900">
+                                            {new Date(sale.date).toLocaleDateString()}
+                                        </td>
+                                        <td className="px-6 py-4 text-gray-900">
+                                            {sale.quantitySold}
+                                        </td>
+                                        <td className="px-6 py-4 text-gray-900">
+                                            KES {sale.unitPrice.toFixed(2)}
+                                        </td>
+                                        <td className="px-6 py-4 font-medium text-gray-900">
+                                            KES {sale.totalRevenue.toFixed(2)}
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <button
+                                                onClick={() => handleDeleteSale(sale._id)}
+                                                className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                title="Delete Sale"
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
