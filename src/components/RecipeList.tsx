@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Plus, ChefHat, ArrowRight } from 'lucide-react';
+import { Plus, ChefHat, ArrowRight, Trash } from 'lucide-react';
 import { recipeService } from '../services/recipeService';
 import type { Recipe } from '../types/schema';
 import { RecipeForm } from './RecipeForm';
@@ -17,6 +17,18 @@ export const RecipeList: React.FC = () => {
             console.error('Failed to load recipes', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDelete = async (recipe: Recipe) => {
+        if (window.confirm(`Are you sure you want to delete "${recipe.name}"?`)) {
+            try {
+                await recipeService.deleteRecipe(recipe);
+                loadRecipes();
+            } catch (error) {
+                console.error('Failed to delete recipe', error);
+                alert('Failed to delete recipe');
+            }
         }
     };
 
@@ -83,6 +95,13 @@ export const RecipeList: React.FC = () => {
                                         <p className="text-sm text-gray-500">{recipe.ingredients.length} ingredients</p>
                                     </div>
                                 </div>
+                                <button
+                                    onClick={() => handleDelete(recipe)}
+                                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                    title="Delete Recipe"
+                                >
+                                    <Trash size={18} />
+                                </button>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4 mb-4 py-3 border-y border-gray-50">

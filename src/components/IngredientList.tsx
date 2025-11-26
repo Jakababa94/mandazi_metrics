@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Plus, Package } from 'lucide-react';
+import { Plus, Package, Trash } from 'lucide-react';
 import { ingredientService } from '../services/ingredientService';
 import type { Ingredient } from '../types/schema';
 import { IngredientForm } from './IngredientForm';
@@ -17,6 +17,18 @@ export const IngredientList: React.FC = () => {
             console.error('Failed to load ingredients', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDelete = async (ingredient: Ingredient) => {
+        if (window.confirm(`Are you sure you want to delete "${ingredient.name}"?`)) {
+            try {
+                await ingredientService.deleteIngredient(ingredient);
+                loadIngredients();
+            } catch (error) {
+                console.error('Failed to delete ingredient', error);
+                alert('Failed to delete ingredient');
+            }
         }
     };
 
@@ -72,14 +84,23 @@ export const IngredientList: React.FC = () => {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {ingredients.map((ing) => (
-                        <div key={ing._id} className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
+                        <div key={ing._id} className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow group relative">
                             <div className="flex justify-between items-start mb-2">
                                 <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600 group-hover:bg-indigo-100 transition-colors">
                                     <Package size={20} />
                                 </div>
-                                <span className="text-xs font-medium px-2 py-1 bg-gray-100 text-gray-600 rounded-full">
-                                    {ing.unit}
-                                </span>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs font-medium px-2 py-1 bg-gray-100 text-gray-600 rounded-full">
+                                        {ing.unit}
+                                    </span>
+                                    <button
+                                        onClick={() => handleDelete(ing)}
+                                        className="p-1 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors"
+                                        title="Delete Ingredient"
+                                    >
+                                        <Trash size={16} />
+                                    </button>
+                                </div>
                             </div>
                             <h3 className="font-semibold text-gray-900 mb-1">{ing.name}</h3>
                             <p className="text-sm text-gray-500 mb-4">Last updated: {new Date(ing.lastUpdated).toLocaleDateString()}</p>
