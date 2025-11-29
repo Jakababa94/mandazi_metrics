@@ -5,6 +5,7 @@ import { BatchList } from './components/BatchList';
 import { Dashboard } from './components/Dashboard';
 import { ThemeProvider } from './context/ThemeContext';
 import { ThemeToggle } from './components/ThemeToggle';
+import mandaziImg from './assets/mandazi.png';
 
 type View = 'dashboard' | 'ingredients' | 'recipes' | 'production';
 
@@ -16,8 +17,8 @@ function AppContent() {
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10 transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => setCurrentView('dashboard')}>
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-              M
+            <div className="w-8 h-8">
+              <img src={mandaziImg} alt="mandazi" width="32" height="32" className="w-full h-full object-cover rounded-lg" />
             </div>
             <span className="font-bold text-xl tracking-tight text-gray-900 dark:text-white">Mandazi Pro</span>
           </div>
