@@ -21,6 +21,7 @@ export interface Recipe {
     _rev?: string;
     type: 'recipe';
     name: string;
+    date: string; // ISO Date
     expectedYield: number;
     wastagePercent: number;
     ingredients: RecipeIngredient[];

@@ -11,6 +11,7 @@ interface RecipeFormProps {
 
 export const RecipeForm: React.FC<RecipeFormProps> = ({ onSave, onCancel }) => {
     const [name, setName] = useState('');
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [expectedYield, setExpectedYield] = useState<number>(0);
     const [wastagePercent, setWastagePercent] = useState<number>(5);
     const [ingredients, setIngredients] = useState<RecipeIngredient[]>([]);
@@ -54,6 +55,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ onSave, onCancel }) => {
         try {
             await recipeService.addRecipe({
                 name,
+                date,
                 expectedYield,
                 wastagePercent,
                 ingredients
@@ -94,6 +96,16 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ onSave, onCancel }) => {
                         onChange={(e) => setName(e.target.value)}
                         className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors"
                         placeholder="e.g. Standard Mandazi Batch"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date</label>
+                    <input
+                        type="date"
+                        required
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors"
                     />
                 </div>
                 <div>
