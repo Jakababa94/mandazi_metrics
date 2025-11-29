@@ -35,33 +35,33 @@ export const IngredientForm: React.FC<IngredientFormProps> = ({ onSave, onCancel
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-6 animate-in fade-in slide-in-from-top-4">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6 animate-in fade-in slide-in-from-top-4 transition-colors">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">New Ingredient</h3>
-                <button type="button" onClick={onCancel} className="text-gray-400 hover:text-gray-600">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white">New Ingredient</h3>
+                <button type="button" onClick={onCancel} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                     <X size={20} />
                 </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
                     <input
                         type="text"
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                         placeholder="e.g. Wheat Flour"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Unit</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Unit</label>
                     <select
                         value={unit}
                         onChange={(e) => setUnit(e.target.value as Unit)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                     >
                         <option value="kg">Kilogram (kg)</option>
                         <option value="g">Gram (g)</option>
@@ -72,9 +72,9 @@ export const IngredientForm: React.FC<IngredientFormProps> = ({ onSave, onCancel
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Current Price</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Current Price</label>
                     <div className="relative">
-                        <span className="absolute left-3 top-2 text-gray-500">KES</span>
+                        <span className="absolute left-3 top-2 text-gray-500 dark:text-gray-400">KES</span>
                         <input
                             type="number"
                             required
@@ -82,7 +82,7 @@ export const IngredientForm: React.FC<IngredientFormProps> = ({ onSave, onCancel
                             step="0.01"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
-                            className="w-full pl-12 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                            className="w-full pl-12 pr-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                             placeholder="0.00"
                         />
                     </div>
@@ -93,7 +93,7 @@ export const IngredientForm: React.FC<IngredientFormProps> = ({ onSave, onCancel
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                    className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 >
                     Cancel
                 </button>

@@ -35,10 +35,10 @@ export const BatchList: React.FC = () => {
 
     const getStatusColor = (status: Batch['status']) => {
         switch (status) {
-            case 'planned': return 'bg-blue-100 text-blue-700';
-            case 'in-progress': return 'bg-yellow-100 text-yellow-700';
-            case 'completed': return 'bg-green-100 text-green-700';
-            default: return 'bg-gray-100 text-gray-700';
+            case 'planned': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
+            case 'in-progress': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300';
+            case 'completed': return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300';
+            default: return 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300';
         }
     };
 
@@ -57,8 +57,8 @@ export const BatchList: React.FC = () => {
         <div className="max-w-5xl mx-auto p-6">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Production</h1>
-                    <p className="text-gray-500">Track your baking batches</p>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Production</h1>
+                    <p className="text-gray-500 dark:text-gray-400">Track your baking batches</p>
                 </div>
                 <button
                     onClick={() => setShowForm(true)}
@@ -85,15 +85,15 @@ export const BatchList: React.FC = () => {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div>
                 </div>
             ) : batches.length === 0 ? (
-                <div className="text-center py-16 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
-                    <div className="bg-white p-4 rounded-full inline-block mb-4 shadow-sm">
-                        <Factory size={32} className="text-indigo-500" />
+                <div className="text-center py-16 bg-gray-50 dark:bg-gray-800 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors">
+                    <div className="bg-white dark:bg-gray-700 p-4 rounded-full inline-block mb-4 shadow-sm">
+                        <Factory size={32} className="text-indigo-500 dark:text-indigo-400" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-1">No production history</h3>
-                    <p className="text-gray-500 mb-4">Start your first batch to track costs</p>
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-1">No production history</h3>
+                    <p className="text-gray-500 dark:text-gray-400 mb-4">Start your first batch to track costs</p>
                     <button
                         onClick={() => setShowForm(true)}
-                        className="text-indigo-600 font-medium hover:text-indigo-700"
+                        className="text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300"
                     >
                         Start a batch
                     </button>
@@ -101,46 +101,46 @@ export const BatchList: React.FC = () => {
             ) : (
                 <div className="space-y-4">
                     {batches.map((batch) => (
-                        <div key={batch._id} className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div key={batch._id} className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                             <div className="flex items-start gap-4">
-                                <div className="p-3 bg-indigo-50 rounded-lg text-indigo-600">
+                                <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg text-indigo-600 dark:text-indigo-400">
                                     <Factory size={24} />
                                 </div>
                                 <div>
                                     <div className="flex items-center gap-2 mb-1">
-                                        <h3 className="font-semibold text-gray-900 text-lg">
+                                        <h3 className="font-semibold text-gray-900 dark:text-white text-lg">
                                             {batch.recipeId ? recipes[batch.recipeId] : 'Unknown Recipe'}
                                         </h3>
                                         <span className={`text-xs px-2 py-0.5 rounded-full font-medium uppercase tracking-wide ${getStatusColor(batch.status)}`}>
                                             {batch.status}
                                         </span>
                                     </div>
-                                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                                    <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                                         <span className="flex items-center gap-1">
                                             <Calendar size={14} /> {new Date(batch.date).toLocaleDateString()}
                                         </span>
                                         <span>
-                                            Target: <strong>{batch.targetYield} pcs</strong>
+                                            Target: <strong className="text-gray-700 dark:text-gray-300">{batch.targetYield} pcs</strong>
                                         </span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-6 w-full md:w-auto border-t md:border-t-0 border-gray-100 pt-4 md:pt-0">
+                            <div className="flex items-center gap-6 w-full md:w-auto border-t md:border-t-0 border-gray-100 dark:border-gray-700 pt-4 md:pt-0">
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase tracking-wider">Total Cost</div>
-                                    <div className="font-bold text-gray-900">KES {batch.totalCost.toFixed(2)}</div>
+                                    <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Cost</div>
+                                    <div className="font-bold text-gray-900 dark:text-white">KES {batch.totalCost.toFixed(2)}</div>
                                 </div>
                                 <div>
-                                    <div className="text-xs text-gray-500 uppercase tracking-wider">Cost / Unit</div>
-                                    <div className="font-bold text-indigo-600">KES {batch.costPerUnit?.toFixed(2)}</div>
+                                    <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Cost / Unit</div>
+                                    <div className="font-bold text-indigo-600 dark:text-indigo-400">KES {batch.costPerUnit?.toFixed(2)}</div>
                                 </div>
-                                <button className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                <button className="px-3 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
                                     Details
                                 </button>
                                 <button
                                     onClick={() => handleDelete(batch._id)}
-                                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                    className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                                     title="Delete Batch"
                                 >
                                     <Trash2 size={18} />

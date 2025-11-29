@@ -76,39 +76,39 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ onSave, onCancel }) => {
     }, 0);
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-6 animate-in fade-in slide-in-from-top-4">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6 animate-in fade-in slide-in-from-top-4 transition-colors">
             <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg font-semibold text-gray-800">New Recipe</h3>
-                <button type="button" onClick={onCancel} className="text-gray-400 hover:text-gray-600">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white">New Recipe</h3>
+                <button type="button" onClick={onCancel} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                     <X size={20} />
                 </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Recipe Name</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Recipe Name</label>
                     <input
                         type="text"
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors"
                         placeholder="e.g. Standard Mandazi Batch"
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Expected Yield (pcs)</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Expected Yield (pcs)</label>
                     <input
                         type="number"
                         required
                         min="1"
                         value={expectedYield || ''}
                         onChange={(e) => setExpectedYield(parseInt(e.target.value) || 0)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors"
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Wastage %</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Wastage %</label>
                     <input
                         type="number"
                         required
@@ -116,18 +116,18 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ onSave, onCancel }) => {
                         max="100"
                         value={wastagePercent}
                         onChange={(e) => setWastagePercent(parseFloat(e.target.value) || 0)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors"
                     />
                 </div>
             </div>
 
             <div className="mb-6">
                 <div className="flex justify-between items-center mb-2">
-                    <label className="block text-sm font-medium text-gray-700">Ingredients</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Ingredients</label>
                     <button
                         type="button"
                         onClick={addIngredientRow}
-                        className="text-sm text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1"
+                        className="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium flex items-center gap-1"
                     >
                         <Plus size={16} /> Add Ingredient
                     </button>
@@ -140,7 +140,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ onSave, onCancel }) => {
                                 <select
                                     value={row.ingredientId}
                                     onChange={(e) => updateIngredientRow(index, 'ingredientId', e.target.value)}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                                    className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                                 >
                                     {availableIngredients.map(ing => (
                                         <option key={ing._id} value={ing._id}>{ing.name} ({ing.unit})</option>
@@ -154,39 +154,39 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({ onSave, onCancel }) => {
                                     step="0.01"
                                     value={row.quantity || ''}
                                     onChange={(e) => updateIngredientRow(index, 'quantity', parseFloat(e.target.value) || 0)}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                                    className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                                     placeholder="Qty"
                                 />
                             </div>
-                            <div className="w-24 pt-2 text-sm text-gray-500">
+                            <div className="w-24 pt-2 text-sm text-gray-500 dark:text-gray-400">
                                 {row.unit}
                             </div>
                             <button
                                 type="button"
                                 onClick={() => removeIngredientRow(index)}
-                                className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
+                                className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                             >
                                 <Trash2 size={18} />
                             </button>
                         </div>
                     ))}
                     {ingredients.length === 0 && (
-                        <div className="text-center py-6 bg-gray-50 rounded-lg border border-dashed border-gray-300 text-gray-500 text-sm">
+                        <div className="text-center py-6 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400 text-sm transition-colors">
                             No ingredients added yet.
                         </div>
                     )}
                 </div>
             </div>
 
-            <div className="flex justify-between items-center pt-4 border-t border-gray-100">
-                <div className="text-sm text-gray-500">
-                    Est. Raw Cost: <span className="font-semibold text-gray-900">KES {estimatedCost.toFixed(2)}</span>
+            <div className="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-700">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                    Est. Raw Cost: <span className="font-semibold text-gray-900 dark:text-white">KES {estimatedCost.toFixed(2)}</span>
                 </div>
                 <div className="flex gap-3">
                     <button
                         type="button"
                         onClick={onCancel}
-                        className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                        className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
                     >
                         Cancel
                     </button>

@@ -40,8 +40,8 @@ export const RecipeList: React.FC = () => {
         <div className="max-w-5xl mx-auto p-6">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Recipes</h1>
-                    <p className="text-gray-500">Manage your production templates</p>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Recipes</h1>
+                    <p className="text-gray-500 dark:text-gray-400">Manage your production templates</p>
                 </div>
                 <button
                     onClick={() => setShowForm(true)}
@@ -68,15 +68,15 @@ export const RecipeList: React.FC = () => {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div>
                 </div>
             ) : recipes.length === 0 ? (
-                <div className="text-center py-16 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
-                    <div className="bg-white p-4 rounded-full inline-block mb-4 shadow-sm">
-                        <ChefHat size={32} className="text-indigo-500" />
+                <div className="text-center py-16 bg-gray-50 dark:bg-gray-800 rounded-xl border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors">
+                    <div className="bg-white dark:bg-gray-700 p-4 rounded-full inline-block mb-4 shadow-sm">
+                        <ChefHat size={32} className="text-indigo-500 dark:text-indigo-400" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-1">No recipes yet</h3>
-                    <p className="text-gray-500 mb-4">Create a recipe to start production</p>
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-1">No recipes yet</h3>
+                    <p className="text-gray-500 dark:text-gray-400 mb-4">Create a recipe to start production</p>
                     <button
                         onClick={() => setShowForm(true)}
-                        className="text-indigo-600 font-medium hover:text-indigo-700"
+                        className="text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300"
                     >
                         Create your first recipe
                     </button>
@@ -84,38 +84,38 @@ export const RecipeList: React.FC = () => {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {recipes.map((recipe) => (
-                        <div key={recipe._id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                        <div key={recipe._id} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all">
                             <div className="flex justify-between items-start mb-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-orange-50 rounded-lg text-orange-600">
+                                    <div className="p-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg text-orange-600 dark:text-orange-400">
                                         <ChefHat size={24} />
                                     </div>
                                     <div>
-                                        <h3 className="font-semibold text-gray-900 text-lg">{recipe.name}</h3>
-                                        <p className="text-sm text-gray-500">{recipe.ingredients.length} ingredients</p>
+                                        <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{recipe.name}</h3>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">{recipe.ingredients.length} ingredients</p>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => handleDelete(recipe)}
-                                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                                     title="Delete Recipe"
                                 >
                                     <Trash size={18} />
                                 </button>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4 mb-4 py-3 border-y border-gray-50">
+                            <div className="grid grid-cols-2 gap-4 mb-4 py-3 border-y border-gray-50 dark:border-gray-700">
                                 <div>
-                                    <span className="text-xs text-gray-500 uppercase tracking-wider font-medium">Yield</span>
-                                    <div className="font-semibold text-gray-900">{recipe.expectedYield} pcs</div>
+                                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-medium">Yield</span>
+                                    <div className="font-semibold text-gray-900 dark:text-white">{recipe.expectedYield} pcs</div>
                                 </div>
                                 <div>
-                                    <span className="text-xs text-gray-500 uppercase tracking-wider font-medium">Wastage</span>
-                                    <div className="font-semibold text-gray-900">{recipe.wastagePercent}%</div>
+                                    <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider font-medium">Wastage</span>
+                                    <div className="font-semibold text-gray-900 dark:text-white">{recipe.wastagePercent}%</div>
                                 </div>
                             </div>
 
-                            <button className="w-full py-2 flex items-center justify-center gap-2 text-indigo-600 font-medium hover:bg-indigo-50 rounded-lg transition-colors">
+                            <button className="w-full py-2 flex items-center justify-center gap-2 text-indigo-600 dark:text-indigo-400 font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors">
                                 Start Production <ArrowRight size={16} />
                             </button>
                         </div>

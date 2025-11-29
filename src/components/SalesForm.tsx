@@ -55,21 +55,21 @@ export const SalesForm: React.FC<SalesFormProps> = ({ onSave, onCancel }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-6 animate-in fade-in slide-in-from-top-4">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6 animate-in fade-in slide-in-from-top-4 transition-colors">
             <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg font-semibold text-gray-800">Record New Sale</h3>
-                <button type="button" onClick={onCancel} className="text-gray-400 hover:text-gray-600">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Record New Sale</h3>
+                <button type="button" onClick={onCancel} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                     <X size={20} />
                 </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Source Batch (Optional)</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Source Batch (Optional)</label>
                     <select
                         value={selectedBatchId}
                         onChange={(e) => setSelectedBatchId(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                     >
                         <option value="">-- General Sale (No Batch) --</option>
                         {batches.map(b => (
@@ -81,30 +81,30 @@ export const SalesForm: React.FC<SalesFormProps> = ({ onSave, onCancel }) => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Sale Date</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sale Date</label>
                     <input
                         type="date"
                         required
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Quantity Sold</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quantity Sold</label>
                     <input
                         type="number"
                         required
                         min="1"
                         value={quantity || ''}
                         onChange={(e) => setQuantity(parseInt(e.target.value) || 0)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Unit Price (KES)</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Unit Price (KES)</label>
                     <input
                         type="number"
                         required
@@ -112,20 +112,20 @@ export const SalesForm: React.FC<SalesFormProps> = ({ onSave, onCancel }) => {
                         step="0.01"
                         value={unitPrice}
                         onChange={(e) => setUnitPrice(parseFloat(e.target.value) || 0)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                     />
                 </div>
             </div>
 
-            <div className="flex justify-between items-center pt-4 border-t border-gray-100">
-                <div className="text-sm text-gray-500">
-                    Total Revenue: <span className="font-bold text-green-600">KES {(quantity * unitPrice).toFixed(2)}</span>
+            <div className="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-700">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                    Total Revenue: <span className="font-bold text-green-600 dark:text-green-400">KES {(quantity * unitPrice).toFixed(2)}</span>
                 </div>
                 <div className="flex gap-3">
                     <button
                         type="button"
                         onClick={onCancel}
-                        className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                        className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
                     >
                         Cancel
                     </button>

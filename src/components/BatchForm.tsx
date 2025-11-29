@@ -81,22 +81,22 @@ export const BatchForm: React.FC<BatchFormProps> = ({ onSave, onCancel }) => {
     const estCost = calculateEstimatedCost();
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-6 animate-in fade-in slide-in-from-top-4">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6 animate-in fade-in slide-in-from-top-4 transition-colors">
             <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg font-semibold text-gray-800">Start Production Batch</h3>
-                <button type="button" onClick={onCancel} className="text-gray-400 hover:text-gray-600">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Start Production Batch</h3>
+                <button type="button" onClick={onCancel} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                     <X size={20} />
                 </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Select Recipe</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Recipe</label>
                     <select
                         required
                         value={selectedRecipeId}
                         onChange={(e) => handleRecipeChange(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                     >
                         <option value="">-- Choose a recipe --</option>
                         {recipes.map(r => (
@@ -106,18 +106,18 @@ export const BatchForm: React.FC<BatchFormProps> = ({ onSave, onCancel }) => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Production Date</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Production Date</label>
                     <input
                         type="date"
                         required
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Target Yield (pcs)</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Target Yield (pcs)</label>
                     <div className="flex gap-2">
                         <input
                             type="number"
@@ -125,34 +125,34 @@ export const BatchForm: React.FC<BatchFormProps> = ({ onSave, onCancel }) => {
                             min="1"
                             value={targetYield || ''}
                             onChange={(e) => setTargetYield(parseInt(e.target.value) || 0)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                            className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                         />
                         {selectedRecipe && (
-                            <div className="flex items-center text-xs text-gray-500 whitespace-nowrap">
+                            <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
                                 Scale: {(targetYield / selectedRecipe.expectedYield).toFixed(2)}x
                             </div>
                         )}
                     </div>
                 </div>
 
-                <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-100 flex flex-col justify-center">
-                    <div className="flex items-center gap-2 text-indigo-800 font-medium mb-1">
+                <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-100 dark:border-indigo-900/40 flex flex-col justify-center transition-colors">
+                    <div className="flex items-center gap-2 text-indigo-800 dark:text-indigo-300 font-medium mb-1">
                         <Calculator size={16} /> Estimated Cost
                     </div>
-                    <div className="text-2xl font-bold text-indigo-900">
+                    <div className="text-2xl font-bold text-indigo-900 dark:text-indigo-200">
                         KES {estCost.toFixed(2)}
                     </div>
-                    <div className="text-sm text-indigo-600">
+                    <div className="text-sm text-indigo-600 dark:text-indigo-400">
                         ~ {(estCost / (targetYield || 1)).toFixed(2)} per unit
                     </div>
                 </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+            <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                    className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 >
                     Cancel
                 </button>
