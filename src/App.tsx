@@ -11,6 +11,12 @@ type View = 'dashboard' | 'ingredients' | 'recipes' | 'production';
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<View>('dashboard');
+  const [selectedRecipeId, setSelectedRecipeId] = useState<string | undefined>();
+
+  const handleStartProduction = (recipeId: string) => {
+    setSelectedRecipeId(recipeId);
+    setCurrentView('production');
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-200">
@@ -59,8 +65,8 @@ function AppContent() {
       <main className="py-8">
         {currentView === 'dashboard' && <Dashboard />}
         {currentView === 'ingredients' && <IngredientList />}
-        {currentView === 'recipes' && <RecipeList />}
-        {currentView === 'production' && <BatchList />}
+        {currentView === 'recipes' && <RecipeList onStartProduction={handleStartProduction} />}
+        {currentView === 'production' && <BatchList initialRecipeId={selectedRecipeId} />}
       </main>
     </div>
   );

@@ -5,7 +5,11 @@ import { recipeService } from '../services/recipeService';
 import type { Batch } from '../types/schema';
 import { BatchForm } from './BatchForm';
 
-export const BatchList: React.FC = () => {
+interface BatchListProps {
+    initialRecipeId?: string;
+}
+
+export const BatchList: React.FC<BatchListProps> = ({ initialRecipeId }) => {
     const [batches, setBatches] = useState<Batch[]>([]);
     const [recipes, setRecipes] = useState<Record<string, string>>({});
     const [showForm, setShowForm] = useState(false);
@@ -32,6 +36,12 @@ export const BatchList: React.FC = () => {
     useEffect(() => {
         loadData();
     }, []);
+
+    useEffect(() => {
+        if (initialRecipeId) {
+            setShowForm(true);
+        }
+    }, [initialRecipeId]);
 
     const getStatusColor = (status: Batch['status']) => {
         switch (status) {
@@ -72,6 +82,7 @@ export const BatchList: React.FC = () => {
 
             {showForm && (
                 <BatchForm
+                    initialRecipeId={initialRecipeId}
                     onSave={() => {
                         setShowForm(false);
                         loadData();

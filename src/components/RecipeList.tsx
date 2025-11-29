@@ -4,7 +4,11 @@ import { recipeService } from '../services/recipeService';
 import type { Recipe } from '../types/schema';
 import { RecipeForm } from './RecipeForm';
 
-export const RecipeList: React.FC = () => {
+interface RecipeListProps {
+    onStartProduction?: (recipeId: string) => void;
+}
+
+export const RecipeList: React.FC<RecipeListProps> = ({ onStartProduction }) => {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [showForm, setShowForm] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -115,7 +119,10 @@ export const RecipeList: React.FC = () => {
                                 </div>
                             </div>
 
-                            <button className="w-full py-2 flex items-center justify-center gap-2 text-indigo-600 dark:text-indigo-400 font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors">
+                            <button
+                                onClick={() => onStartProduction?.(recipe._id)}
+                                className="w-full py-2 flex items-center justify-center gap-2 text-indigo-600 dark:text-indigo-400 font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors"
+                            >
                                 Start Production <ArrowRight size={16} />
                             </button>
                         </div>

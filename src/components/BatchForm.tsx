@@ -6,22 +6,31 @@ import { ingredientService } from '../services/ingredientService';
 import type { Recipe, Ingredient } from '../types/schema';
 
 interface BatchFormProps {
+    initialRecipeId?: string;
     onSave: () => void;
     onCancel: () => void;
 }
 
-export const BatchForm: React.FC<BatchFormProps> = ({ onSave, onCancel }) => {
+export const BatchForm: React.FC<BatchFormProps> = ({ initialRecipeId, onSave, onCancel }) => {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
-    const [selectedRecipeId, setSelectedRecipeId] = useState('');
+    const [selectedRecipeId, setSelectedRecipeId] = useState(initialRecipeId || '');
     const [targetYield, setTargetYield] = useState<number>(0);
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [loading, setLoading] = useState(false);
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
     useEffect(() => {
-        recipeService.getAllRecipes().then(setRecipes);
+        recipeService.getAllRecipes().then(data => {
+            setRecipes(data);
+            if (initialRecipeId) {
+                const recipe = data.find(r => r._id === initialRecipeId);
+                if (recipe) {
+                    setTargetYield(recipe.expectedYield);
+                }
+            }
+        });
         ingredientService.getAllIngredients().then(setIngredients);
-    }, []);
+    }, [initialRecipeId]);
 
     const selectedRecipe = recipes.find(r => r._id === selectedRecipeId);
 
