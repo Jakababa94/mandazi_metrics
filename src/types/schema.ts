@@ -62,4 +62,14 @@ export interface FixedCost {
     allocationMethod: 'per_batch' | 'production_hours';
 }
 
-export type DocType = Ingredient | Recipe | Batch | Sale | FixedCost;
+export interface User {
+    _id: string;
+    _rev?: string;
+    type: 'user';
+    name: string;
+    email: string;
+    passwordHash: string; // In a real app, never store plain text. We'll simulate hash or store as is for this local demo but named 'Hash' to imply intent.
+    createdAt: string;
+}
+
+export type DocType = Ingredient | Recipe | Batch | Sale | FixedCost | User;

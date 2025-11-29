@@ -5,13 +5,33 @@ import { BatchList } from './components/BatchList';
 import { Dashboard } from './components/Dashboard';
 import { ThemeProvider } from './context/ThemeContext';
 import { ThemeToggle } from './components/ThemeToggle';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { Login } from './components/Login';
+import { Signup } from './components/Signup';
+import { LogOut } from 'lucide-react';
 import mandaziImg from './assets/mandazi.png';
 
 type View = 'dashboard' | 'ingredients' | 'recipes' | 'production';
 
 function AppContent() {
+  const { user, logout, loading } = useAuth();
   const [currentView, setCurrentView] = useState<View>('dashboard');
   const [selectedRecipeId, setSelectedRecipeId] = useState<string | undefined>();
+  const [authView, setAuthView] = useState<'login' | 'signup'>('login');
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return authView === 'login'
+      ? <Login onSwitchToSignup={() => setAuthView('signup')} />
+      : <Signup onSwitchToLogin={() => setAuthView('login')} />;
+  }
 
   const handleStartProduction = (recipeId: string) => {
     setSelectedRecipeId(recipeId);
@@ -55,8 +75,15 @@ function AppContent() {
                 Production
               </button>
             </nav>
-            <div className="pl-6 border-l border-gray-200 dark:border-gray-700">
+            <div className="flex items-center gap-4 pl-6 border-l border-gray-200 dark:border-gray-700">
               <ThemeToggle />
+              <button
+                onClick={logout}
+                className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                title="Sign Out"
+              >
+                <LogOut size={20} />
+              </button>
             </div>
           </div>
         </div>
@@ -75,7 +102,9 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
