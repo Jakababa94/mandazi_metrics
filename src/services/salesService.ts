@@ -1,5 +1,6 @@
 import db, { generateId } from '../db/db';
 import type { Sale } from '../types/schema';
+import { batchService } from './batchService';
 
 export const salesService = {
     async recordSale(sale: Omit<Sale, '_id' | 'type' | 'totalRevenue'>) {
@@ -9,7 +10,22 @@ export const salesService = {
             ...sale,
             totalRevenue: sale.quantitySold * sale.unitPrice
         };
-        return await db.put(newSale);
+
+        const result = await db.put(newSale);
+
+        if (sale.batchId) {
+            try {
+                const batch = await batchService.getBatch(sale.batchId);
+                if (batch) {
+                    batch.status = 'completed';
+                    await batchService.updateBatch(batch);
+                }
+            } catch (error) {
+                console.error('Failed to autocomplete batch', error);
+            }
+        }
+
+        return result;
     },
 
     async getAllSales() {
